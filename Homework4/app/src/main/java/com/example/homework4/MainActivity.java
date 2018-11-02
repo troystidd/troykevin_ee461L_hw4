@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
     //default to Sydney AU
     double lat = -34;
     double lng = 151;
-
+    String formatted = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, MapsActivity.class);
         intent.putExtra("lat", lat);
         intent.putExtra("lng", lng);
+        intent.putExtra("formatted_address", formatted);
         System.out.println("actual latln:" + lat + ", " + lng);
         startActivity(intent);
     }
@@ -86,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
                         .getJSONObject("location").get("lat");
                 lng = (double)((JSONArray) jsonObject.get("results")).getJSONObject(0).getJSONObject("geometry")
                         .getJSONObject("location").get("lng");
+                formatted = (String) ((JSONArray)jsonObject.get("results")).getJSONObject(0).get("formatted_address");
                 System.out.println("" + lat + ", " + lng);
                 if (dialog.isShowing())
                     dialog.dismiss();

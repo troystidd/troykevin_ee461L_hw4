@@ -12,6 +12,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import android.widget.EditText;
+import android.widget.TextView;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -46,8 +47,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         Intent intent = getIntent();
         lat = intent.getDoubleExtra("lat", 0);
         lng = intent.getDoubleExtra("lng", 0);
-        LatLng sydney = new LatLng(lat, lng);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        LatLng marker = new LatLng(lat, lng);
+        mMap.addMarker(new MarkerOptions().position(marker).title("Requested Location"));
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(marker));
+        ((TextView)findViewById(R.id.formatted)).setText(intent.getStringExtra("formatted_address"));
     }
 }
